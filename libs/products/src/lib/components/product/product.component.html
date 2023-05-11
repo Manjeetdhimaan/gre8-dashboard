@@ -1,0 +1,17 @@
+
+<div class="product-item" *ngIf="product">
+  <div class="product-item-wrapper">
+      <img style="cursor: pointer" [src]="product.image" class="image" [alt]="product.name" [routerLink]="'/products/product/' + product._id">
+      <h4 class="name">{{ product.name }}</h4>
+      <h5 class="price">{{ product.price | currency: product.currency }}</h5>
+    <p-button
+      styleClass="mt-3 add-to-cart"
+      label="Add to cart"
+      icon="pi pi-shopping-cart"
+      (onClick)="onAddtoCart(product._id)"
+      [loading]="isLoading">
+    </p-button>
+  </div>
+</div>
+
+

@@ -1,0 +1,9 @@
+<div class="admin-top-header">
+  <i class="pi pi-align-left menu-icon-open" (click)="toggleSideBar()"></i>
+</div>
+<div class="admin-wrapper"  [ngClass]="isSideBarOpen ? '': 'close'">
+  <admin-sidebar (closeMenuEmitter)="toggleSideBar()"></admin-sidebar>
+  <div class="admin-main"  [ngClass]="isSideBarOpen ? '': 'full'">
+    <router-outlet></router-outlet>
+  </div>
+</div>

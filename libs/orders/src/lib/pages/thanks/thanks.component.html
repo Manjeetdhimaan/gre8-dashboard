@@ -1,0 +1,13 @@
+<div class="checkout-page">
+  <h3 *ngIf="isLoading">Confirming your order...</h3>
+  <div class="thankyou-page" *ngIf="isSuccessFromServer && !isLoading">
+    <h2>Thank you for Shopping with us!</h2>
+    <h3>We have recieved your order and it will be delivered in the next 3 days</h3>
+    <p-button label="Back to shop" routerLink="/"></p-button>
+  </div>
+  <div class="thankyou-page" *ngIf="!isSuccessFromServer && !isLoading">
+    <h2>No Order found!</h2>
+    <h3>Place an order before accessing this page</h3>
+    <p-button label="Back to shop" routerLink="/"></p-button>
+  </div>
+</div>

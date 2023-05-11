@@ -1,0 +1,104 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="View Order" subheader="You can update order status here">
+    <p-toolbar>
+      <div class="p-toolbar-group-right">
+        <div *ngIf="order">
+          <h3>Payment Status: <p-tag [value]="order.paymentStatus"
+              [severity]="paymentStatus[order.paymentStatus].color"></p-tag>
+          </h3>
+        </div>
+      </div>
+    </p-toolbar>
+    <span *ngIf="!isLoading && order">
+      <p-fieldset legend="Order Details" styleClass="mb-4 mt-2" [toggleable]="true">
+        <div class="grid">
+          <div class="col">
+            <h5>Order Id</h5>
+            <p>{{ order._id }}</p>
+          </div>
+          <div class="col">
+            <h5>Order Date</h5>
+            <p>{{ order.dateOrdered | date: 'short' }}</p>
+          </div>
+          <div class="col">
+            <h5>Order Status</h5>
+            <p-dropdown class="block" styleClass="w-full" [options]="orderStatuses" optionLabel="name" optionValue="id"
+              [(ngModel)]="selectedOrderStatus" placeholder="Order Status"
+              (onChange)="onChangeStatus($event, order._id)"></p-dropdown>
+          </div>
+          <div class="col">
+            <h5>Order Total Price</h5>
+            <p class="font-bold">{{ order.totalPrice | currency: order.currency
+              }}</p>
+          </div>
+          <div class="col" *ngIf="order.address.orderNotes">
+            <h5>Order Notes</h5>
+            <p class="font-bold">{{ order.address.orderNotes }}</p>
+          </div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Ordered Items" styleClass="mb-4" [toggleable]="true">
+        <div class="grid">
+          <div class="col-3 font-bold">
+            <h5>Name</h5>
+          </div>
+          <div class="col-3">
+            <h5>Price</h5>
+          </div>
+          <div class="col-3">
+            <h5>Quantity</h5>
+          </div>
+          <div class="col-3">
+            <h5>Subtotal</h5>
+          </div>
+        </div>
+        <div class="grid" *ngFor="let item of order.orderItems">
+          <div class="col-3">
+            <p>{{ item.product.name }}</p>
+          </div>
+          <div class="col-3">
+            <p>{{ item.product.currentPrice }}</p>
+          </div>
+          <div class="col-3">
+            <p>{{ item.quantity }}</p>
+          </div>
+          <div class="col-3">
+            <p>{{ +item.product.currentPrice * +item.quantity |
+              currency: item.product.currency }}</p>
+          </div>
+        </div>
+        <div class="grid" style="color: green">
+          <div class="col-2 font-bold col-offset-8">Total Price</div>
+          <div class="col-2 font-bold">{{ order.totalPrice | currency:
+            order.currency }}</div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Order Address" [toggleable]="true">
+        <div class="grid">
+          <div class="col order-address">
+            <h5>Order Address</h5>
+            <p> {{ order.address.shippingAddress1 }},
+              {{ order.address.shippingAddress2 }}, <br>
+              {{ order.address.zip }},
+              {{ order.address.city }}, <br>
+              {{ order.address.country }}</p>
+          </div>
+          <div class="col order-address">
+            <h5>Customer Name</h5>
+            <p>{{ order.address.name }}</p>
+          </div>
+          <div class="col order-address">
+            <h5>Contact Details</h5>
+            <p> <a [href]="'tel:'+order.address.phone">{{ order.address.phone }}</a>  <br>
+             <a [href]="'mailto:'+order.address.email">{{ order.address.email }}</a>  </p>
+          </div>
+        </div>
+      </p-fieldset>
+    </span>
+    <div class="loading">
+      <p *ngIf="isLoading && !isError">Loading...</p>
+      <p *ngIf="!isLoading && isError">An error occured while fetching order</p>
+    </div>
+  </p-card>
+</div>

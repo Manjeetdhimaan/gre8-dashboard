@@ -1,0 +1,19 @@
+<div class="products-search">
+  <i class="pi pi-search"></i>
+  <input type="text" id="searh" [(ngModel)]="searchText" name="search" class="products-search-input" (keyup)="onSearchProducts($event)" placeholder="Find Products">
+  <i class="pi pi-times-circle p-text-secondary close-icon" *ngIf="products.length > 0 && !isLoadingProducts" (click)="onSearchProducts($event, true)" style="cursor: pointer;"></i>
+  <i class="pi pi-spin pi-spinner" *ngIf="isLoadingProducts && !isNotFound"></i>
+</div>
+<div class="products-search-list">
+  <ul [@list2] *ngIf="products.length > 0">
+    <li class="products-search-item" *ngFor="let product of products">
+      <a [routerLink]="'/products/product/'+product._id" (click)="onSearchProducts($event, true)"><img class="products-search-item-image" [src]="product.image" [alt]="product.name" width="50"> <span>{{ product.name }}</span></a>
+    </li>
+  </ul>
+
+  <div *ngIf="products.length <= 0 && isNotFound">
+    <p class="products-search-item">No Results found</p>
+  </div>
+</div>
+<div class="products-search-backdrop" (click)="onSearchProducts($event, true)" [@fadeIn] *ngIf="products.length > 0">
+</div>

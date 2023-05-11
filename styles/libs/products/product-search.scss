@@ -1,0 +1,89 @@
+.products-search {
+  display: flex;
+  background-color: var(--surface-200);
+  border-radius: 10px;
+  width: 275px;
+  height: 35px;
+  align-items: center;
+
+  &-item {
+    margin: 15px auto;
+
+    &-image {
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+    padding: 0 32px;
+    border-top: 8px solid transparent;
+    width: auto;
+    max-height: 55vh;
+    position: absolute;
+    z-index: 6;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px);
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #D32F2F;
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #D32F2F;
+    }
+  }
+
+  &-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffffdb;
+    z-index: 5;
+  }
+
+  .pi-search, .pi-times-circle {
+    width: 25px;
+    font-size: 1em;
+    color: $primary-color;
+    margin-left: 8px;
+    margin-top: 2px;
+    z-index: 6;
+  }
+
+  .pi-spin {
+    color: $primary-color;
+    z-index: 6;
+    margin-left: 8px;
+  }
+
+  &-input {
+    height: 35px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(surface-600);
+    z-index: 6;
+  }
+}
+
+a {
+  cursor: pointer;
+}

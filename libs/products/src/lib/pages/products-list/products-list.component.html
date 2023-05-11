@@ -1,0 +1,40 @@
+<div class="products-page animate__animated animate__fadeIn">
+  <div class="grid">
+    <div class="col-3" *ngIf="!isCategoryPage && isLoadingCategories">
+      <h4>Categories <i  class="pi pi-spin pi-spinner"></i></h4>
+      <div class="field-checkbox" *ngFor="let category of ['', '', '', '', '', '']">
+        <p-skeleton height="1.2rem" width="1.2rem" borderRadius="1px" styleClass="mr-2 mb-1"></p-skeleton>
+        <p-skeleton height="1.2rem" width="4rem" borderRadius="8px" styleClass="mb-1"></p-skeleton>
+      </div>
+    </div>
+    <div class="col-3" *ngIf="!isCategoryPage && !isLoadingCategories">
+      <h4>Categories <i *ngIf="isLoadingFilters" class="pi pi-spin pi-spinner"></i></h4>
+      <div class="field-checkbox" *ngFor="let category of categories">
+        <p-checkbox [(ngModel)]="category.checked" [binary]="true" [inputId]="category._id"
+          (onChange)="categoryFilter()"></p-checkbox>
+        <label [for]="category._id">{{category.name}}</label>
+      </div>
+    </div>
+
+    <div [ngClass]="!isCategoryPage ? 'col-9': 'col-12'" *ngIf="isLoadingProducts">
+      <div class="grid animate__animated animate__fadeIn">
+        <div [ngClass]="!isCategoryPage ? 'col-4': 'col-3'" *ngFor="let prod of ['', '', '', '', '', '']">
+          <p-skeleton height="3.5rem" width="8rem" styleClass="m-auto mt-5"></p-skeleton>
+          <p-skeleton height="15.5rem" styleClass="mb-6" borderRadius="16px"></p-skeleton>
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="!isCategoryPage ? 'col-9': 'col-12'">
+      <h3 *ngIf="!isLoadingProducts && (products.length <=0)">No Products found in this category</h3>
+      <div class="grid animate__animated animate__fadeIn">
+        <div [ngClass]="!isCategoryPage ? 'col-4': 'col-3'" *ngFor="let product of products">
+          <products-product [product]="product"></products-product>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<p-toast position="bottom-right"></p-toast>

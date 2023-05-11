@@ -1,0 +1,71 @@
+<div class="cart-page">
+  <div class="grid">
+    <div class="col-8">
+      <div>
+        <p-button
+          label="Continue shopping"
+          icon="pi pi-arrow-left"
+          routerLink="/products">
+        </p-button>
+      </div>
+      <div>
+        <h4>
+          My Cart: {{ cartItems.length }} Item(s)
+        </h4>
+      </div>
+      <div class="cart-shipping mb-5">
+        Shipping after payment, Delivery time: 1 to 4 working days
+        <i *ngIf="isLoading || isLoadingUpdateQuantity" class="pi pi-spin pi-spinner"></i>
+      </div>
+
+      <div *ngIf="isLoading">
+        <p-skeleton height="9rem" styleClass="mb-4" borderRadius="16px" *ngFor="let skeletion of ['', '', '']"></p-skeleton>
+      </div>
+
+      <div *ngIf="cartItems && cartItems.length>0">
+      <div class="cart-item mb-5" *ngFor="let cartItem of cartItems; let i = index">
+        <div class="grid p-fluid" >
+          <div class="col-2 cart-item-image">
+            <img
+              [src]="cartItem.product.image"
+              [alt]="cartItem.product.name">
+          </div>
+          <div class="col-7" style="cursor: pointer;">
+            <div class="cart-item-name" [routerLink]="'/products/product/' + cartItem.product._id">{{ cartItem.product.name }}</div>
+            <div class="cart-item-price">{{ cartItem.product.price | currency: cartItem.product.currency }}</div>
+            <div class="cart-item-remove">
+              <p-button [loading]="isLoadingDelete" icon="pi pi-trash" (onClick)="onDeleteItemFromCart(cartItem.product._id, i, +cartItem.product.price, +cartItem.quantity)"></p-button>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="field cart-item-quantity">
+              <label for="quantity">Quantity</label>
+              <p-inputNumber
+                [disabled]="isLoadingUpdateQuantity"
+                [(ngModel)]="cartItem.quantity"
+                aria-valuenow="9"
+                mode="decimal"
+                [showButtons]="true"
+                [inputId]="cartItem.product._id"
+                [min]="1"
+                [max]="100"
+                (onInput)="onUpdateQuantity($event, cartItem.product._id)">
+              </p-inputNumber>
+            </div>
+            <div class="cart-item-subtotal">
+              Subtotal:
+              <span class="cart-item-subtotal-value">{{ +cartItem.product.price * +cartItem.quantity  | currency: cartItem.product.currency }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 *ngIf="cartItems.length<1 && !isLoading">No Items in the cart</h3>
+    </div>
+    <div class="col-4" *ngIf="cartItems.length>0">
+      <orders-order-summary (loadingEmitter)="onLoading($event)"></orders-order-summary>
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-right"></p-toast>

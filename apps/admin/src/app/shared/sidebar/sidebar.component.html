@@ -1,0 +1,31 @@
+
+<div class="admin-sidebar">
+  <div class="menu-icon-close" (click)="closeMenu()">
+    <i class="pi pi-times"></i>
+  </div>
+  <div class="logo" routerLink="/">
+    <img src="assets/images/logo/logo.png" alt="logo">
+  </div>
+  <div class="links">
+    <ul>
+      <li>
+        <a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{exact: true}"><i class="pi pi-home"></i>Dashboard</a>
+      </li>
+      <li>
+        <a routerLinkActive="active" routerLink="/products"><i class="pi pi-briefcase"></i>Products</a>
+      </li>
+      <!-- <li>
+        <a routerLinkActive="active" routerLink="/categories"><i class="pi pi-list"></i>Categories</a>
+      </li> -->
+      <li>
+        <a routerLinkActive="active" routerLink="/orders"><i class="pi pi-shopping-cart"></i>Orders</a>
+      </li>
+      <li>
+        <a routerLinkActive="active" routerLink="/users"><i class="pi pi-users"></i>Users</a>
+      </li>
+      <li>
+        <a class="logout" (click)="onLogout()"><i class="pi pi-sign-out"></i>Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>

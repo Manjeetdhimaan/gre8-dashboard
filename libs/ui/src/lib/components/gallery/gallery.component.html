@@ -1,0 +1,13 @@
+<div *ngIf="images && mainImageSrc && images.length>0">
+  <p-galleria [value]="images" [responsiveOptions]="responsiveOptions"
+    thumbnailsPosition="left" class="gallery">
+    <ng-template pTemplate="item" let-imageSrc>
+      <img [src]="imageSrc" [alt]="imageSrc" style="width: 100%;" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-imageSrc>
+      <div class="grid grid-nogutter justify-content-center">
+        <img [src]="imageSrc" width="50" [alt]="imageSrc" />
+      </div>
+    </ng-template>
+  </p-galleria>
+</div>

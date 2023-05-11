@@ -1,0 +1,52 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="Orders" subheader="List of all orders">
+
+    <div class="loading">
+      <p *ngIf="isLoading && !isError">Loading...</p>
+      <p *ngIf="!isLoading && isError">{{ errorMsg }}</p>
+    </div>
+
+    <div class="grid" *ngIf="!isLoading && !isError">
+      <div class="col-12">
+        <p-table [value]="orders" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="user.name">Ordered by <p-sortIcon
+                  field="user.name"></p-sortIcon></th>
+              <th pSortableColumn="totalPrice">Total Price <p-sortIcon
+                  field="totalPrice"></p-sortIcon></th>
+              <th pSortableColumn="dateOrdered">Date of Order <p-sortIcon
+                  field="dateOrdered"></p-sortIcon></th>
+              <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-order>
+            <tr>
+              <td>{{ order.user.name }}</td>
+              <td>{{ order.totalPrice | currency: order.currency }} </td>
+              <td>{{ order.dateOrdered | date: 'short' }}</td>
+              <td><p-tag [value]="order.status"
+                  [severity]="orderStatus[order.status].color"></p-tag></td>
+              <td>
+                <p-button icon="pi pi-trash"
+                  styleClass="p-button-danger mr-2"
+                  (click)="onDeleteOrder(order._id, order)"></p-button>
+                <p-button icon="pi pi-eye"
+                  styleClass="p-button-error"
+                  (onClick)="onShowOrder(order._id)"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div class="loading">
+      <p *ngIf="isLoadingDelete && !isError">Deleting...</p>
+    </div>
+  </p-card>
+</div>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"></p-confirmDialog>

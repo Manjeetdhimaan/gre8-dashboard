@@ -1,0 +1,43 @@
+.banner {
+  height: 280px;
+  width: 100%;
+  background-color: #d7effb;
+  border-radius: 15px;
+  align-items: center;
+
+  &-text {
+    color: var(--surface-700);
+    margin-top: 50px;
+
+    h1 {
+      margin: 0;
+      font-size: 3em;
+      font-weight: 400;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 2em;
+      font-weight: 300;
+    }
+  }
+
+  &-image {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  &-button {
+    background-color: var(--surface-0);
+    color: $primary-color;
+    border: none;
+    border-radius: 13px;
+    height: 50px;
+
+    &:enabled:hover {
+      background-color: var(--surface-0);
+      color: $primary-color;
+      border: none;
+    }
+  }
+}

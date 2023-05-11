@@ -1,0 +1,54 @@
+<div class="admin-page">
+  <p-card header="Dashboard" subheader="Latest Updates">
+    <div class="grid">
+      <div class="col">
+        <p-card styleClass="d-orders">
+          <div class="d-item" routerLink="/orders">
+            <div>
+              <i class="pi pi-shopping-cart"></i>
+              <span class="name">Orders</span>
+            </div>
+            <span class="number" *ngIf="!isLoading">{{ totalOrders }}</span>
+            <span class="number" *ngIf="isLoading"><p-progressSpinner [style]="{width: '30px', height: '30px'}" styleClass="custom-spinner" strokeWidth="6" animationDuration=".5s"></p-progressSpinner></span>
+          </div>
+        </p-card>
+      </div>
+      <div class="col">
+        <p-card styleClass="d-products">
+          <div class="d-item" routerLink="products">
+            <div>
+              <i class="pi pi-briefcase"></i>
+              <span class="name">Products</span>
+            </div>
+            <span class="number" *ngIf="!isLoading">{{ totalProducts }}</span>
+            <span class="number" *ngIf="isLoading"><p-progressSpinner [style]="{width: '30px', height: '30px'}" styleClass="custom-spinner" strokeWidth="6" animationDuration=".5s"></p-progressSpinner></span>
+          </div>
+        </p-card>
+      </div>
+      <div class="col">
+        <p-card styleClass="d-users">
+          <div class="d-item" routerLink="users">
+            <div>
+              <i class="pi pi-users"></i>
+              <span class="name">Users</span>
+            </div>
+            <span class="number" *ngIf="!isLoading">{{ totalUsers }}</span>
+            <span class="number" *ngIf="isLoading"><p-progressSpinner [style]="{width: '30px', height: '30px'}" styleClass="custom-spinner" strokeWidth="6" animationDuration=".5s"></p-progressSpinner></span>
+          </div>
+        </p-card>
+      </div>
+      <div class="col">
+        <p-card styleClass="d-total-sales">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-dollar"></i>
+              <span class="name">Total Sales</span>
+            </div>
+            <span class="number" *ngIf="!isLoading">{{ totalSales | currency: 'INR' }}</span>
+            <span class="number" *ngIf="isLoading"><p-progressSpinner [style]="{width: '30px', height: '30px'}" styleClass="custom-spinner" strokeWidth="6" animationDuration=".5s"></p-progressSpinner></span>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
+</div>

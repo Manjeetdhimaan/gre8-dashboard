@@ -1,0 +1,162 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="editMode ? 'Edit Product' : 'Add Product'" [subheader]="editMode ?
+    'You can edit product here': 'You can add new product here'">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmitForm()">
+      <div class="p-grid mb-5">
+        <div class="p-col-12">
+          <p-toolbar>
+            <div class="p-toolbar-group-left"></div>
+            <div class="p-toolbar-group-right">
+              <p-button [label]="editMode ? 'Update' : 'Add'" icon="pi
+                pi-plus" styleClass="p-button-primary mr-2" type="submit"></p-button>
+              <p-button label="Cancel" icon="pi pi-arrow-circle-left" styleClass="p-button-secondary"
+                routerLink="/products"></p-button>
+            </div>
+          </p-toolbar>
+        </div>
+      </div>
+
+      <div class="grid" *ngIf="!isLoading">
+        <div class="col-12">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="name">Name</label>
+              <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1
+                border-solid surface-border border-round appearance-none
+                outline-none focus:border-primary w-full">
+              <small *ngIf="(f['name'].hasError('required') &&
+                f['name'].touched) || f['name'].hasError('required') &&
+                submitted" class="p-error">Name is required</small>
+            </div>
+
+            <div class="field col">
+              <label for="price">Price</label>
+              <p-inputNumber styleClass="w-full" formControlName="price" mode="decimal" inputId="price" id="price"
+                class="block"></p-inputNumber>
+              <small *ngIf="(f['price'].hasError('required') &&
+                f['price'].touched) || f['price'].hasError('required') &&
+                submitted" class="p-error">Price is required</small>
+            </div>
+
+            <div class="field col-12">
+              <label for="name">Author (if product is book)</label>
+              <input formControlName="author" id="author" type="text" class="text-base text-color surface-overlay p-2 border-1
+                border-solid surface-border border-round appearance-none
+                outline-none focus:border-primary w-full">
+              <small *ngIf="(f['author'].hasError('required') &&
+                f['author'].touched) || f['author'].hasError('required') &&
+                submitted" class="p-error">Author is required</small>
+            </div>
+          </div>
+
+          <div class="formgrid grid">
+            <div class="field col-10">
+              <label for="countInStock">Stock Count</label>
+              <p-inputNumber styleClass="w-full" formControlName="countInStock" mode="decimal" inputId="countInStock"
+                id="countInStock" class="block"></p-inputNumber>
+              <small *ngIf="(f['countInStock'].hasError('required') &&
+                f['countInStock'].touched) ||
+                f['countInStock'].hasError('required') &&
+                submitted" class="p-error">Stock count is required</small>
+            </div>
+            <!-- <div class="field col-4">
+              <label for="category">Category</label>
+              <p-dropdown class="block" styleClass="w-full" [options]="categories" formControlName="category"
+                optionLabel="name" optionValue="_id" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a
+                Category"></p-dropdown>
+              <small *ngIf="(f['category'].hasError('required') &&
+                f['category'].touched) || f['category'].hasError('required') &&
+                submitted" class="p-error">Please select a category</small>
+            </div> -->
+            <div class="field col-2">
+              <label for="isFeatured">Is Featured</label>
+              <p-inputSwitch formControlName="isFeatured" class="block"></p-inputSwitch>
+            </div>
+
+            <div class="field col">
+              <label for="brand">Categories</label>
+              <div formArrayName="categories">
+                <div class="grid mt-1" *ngFor="let categoryCtrl of catgoriesControls; let i = index" [formGroupName]="i">
+                  <div class="col-10">
+                    <input formControlName="categoryName" id="brand" type="text" class="text-base text-color surface-overlay p-2 border-1
+                  border-solid surface-border border-round appearance-none
+                  outline-none focus:border-primary w-full ng-invalid ng-dirty">
+                  </div>
+                  <div class="col-2">
+                    <p-button type="button" icon="pi pi-trash" styleClass="p-button-danger"
+                    (click)="onDeleteCategory(i)"></p-button>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+                <p-button label="Add Category" icon="pi
+                pi-plus" styleClass="p-button-primary mr-2" type="button" (click)="onAddCategory()"></p-button>
+              </div>
+
+            </div>
+
+            <div class="field col-12">
+              <label for="description">Description</label>
+              <textarea [rows]="7" pInputTextarea formControlName="description" id="description"
+                class="block w-full"></textarea>
+              <small *ngIf="(f['description'].hasError('required') &&
+                f['description'].touched) ||
+                f['description'].hasError('required') &&
+                submitted" class="p-error">Description is required</small>
+            </div>
+
+            <!-- <div class="field col-12">
+              <label for="richDescription">Product Details</label>
+              <p-editor formControlName="richDescription"
+                [style]="{'height':'320px'}" id="richDescription"></p-editor>
+            </div> -->
+
+            <div class="field col-12">
+              <label for="image">Main Image</label>
+              <input type="file" (change)="onImageSelect($event)" class="p-inputtext block w-full" accept="image/*"
+                id="image">
+              <!-- <p-fileUpload for="image"
+                accept="image/*" [maxFileSize]="1000000"></p-fileUpload> -->
+              <div *ngIf="imagePreview" class="col-3 mt-2 pl-0">
+                <img [src]="imagePreview" alt="product image" width="100%" />
+              </div>
+              <small *ngIf="(f['image']?.hasError('required') &&
+                f['image']?.touched) ||
+                f['image']?.hasError('required') &&
+                submitted" class="p-error">Image is required</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <form [formGroup]="productGalleryForm" (ngSubmit)="onSubmitGalleryForm()" *ngIf="editMode && !isLoading">
+      <div class="field col-12">
+        <label for="image">Product Gallery (Addition photos of product to be shown in product details page)</label>
+        <input type="file" (change)="onGalleyImagesSelect($event)" class="p-inputtext block w-full" accept="image/*"
+          multiple id="image">
+        <!-- <p-fileUpload for="image"
+        accept="image/*" [maxFileSize]="1000000"></p-fileUpload> -->
+        <div *ngIf="images && images.length > 0" class="col-12 mt-2 pl-0">
+          <img *ngFor="let img of images" [src]="img" alt="product image" width="20%" class="m-4" />
+        </div>
+      </div>
+      <p-button [label]="editMode ? 'Upload' : 'Create'" icon="pi pi-plus" styleClass="p-button-primary mr-2"
+        type="submit"></p-button>
+    </form>
+
+    <div class="loading">
+      <p *ngIf="isLoading && !isError">Loading...</p>
+      <p *ngIf="!isLoading && isError">An error occured while posting
+        product</p>
+    </div>
+  </p-card>
+</div>

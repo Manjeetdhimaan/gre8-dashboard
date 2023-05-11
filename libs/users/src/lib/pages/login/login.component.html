@@ -1,0 +1,51 @@
+<div class="login-register animate__animated animate__fadeIn">
+  <div class="login-register-panel">
+    <div class="grid">
+      <!-- <div class="col-6">
+        <img src="assets/images/login-photo.png" alt="login-photo">
+      </div> -->
+      <div class="col-6 p-5" style="margin: auto;">
+        <h3>Welcome</h3>
+        <h2>Login Page</h2>
+        <h3 *ngIf="isUserChecking">Login to continue checkout</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+          <div class="grid">
+            <div class="col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" pInputText placeholder="Email"
+                  formControlName="email">
+              </div>
+              <small *ngIf="(f['email'].hasError('required') &&
+                  f['email'].touched) || f['email'].hasError('required') &&
+                  isSubmitted"
+                  class="p-error">Email is required</small>
+                <small *ngIf="(f['email'].hasError('email') &&
+                  f['email'].touched) || f['email'].hasError('email') &&
+                  isSubmitted"
+                  class="p-error">Email is invalid</small>
+            </div>
+            <div class="col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                <input type="password" pInputText placeholder="Password" formControlName="password">
+              </div>
+              <small *ngIf="(f['password'].hasError('required') &&
+                  f['password'].touched) || f['password'].hasError('required') &&
+                  isSubmitted"
+                  class="p-error">Password is required</small>
+                <small *ngIf="(f['password'].hasError('minlength') &&
+                  f['password'].touched) || f['password'].hasError('minlength') &&
+                  isSubmitted"
+                  class="p-error">Minimum length of password should 4 characters</small>
+            </div>
+            <small class="p-error m-auto">{{ errMsg }}</small>
+            <div class="col-12">
+              <p-button label="Login" type="submit" styleClass="w-full" class="w-full" [loading]="isLoading"></p-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

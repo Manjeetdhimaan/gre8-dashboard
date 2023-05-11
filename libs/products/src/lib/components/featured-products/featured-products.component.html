@@ -1,0 +1,15 @@
+<div class="featured-products">
+  <h3>Feartured Products</h3>
+  <div class="grid" *ngIf="isLoading && products.length <= 0">
+    <div class="col-3" *ngFor="let product of ['', '', '', '']">
+      <p-skeleton height="3.5rem" width="8rem" styleClass="m-auto mt-5"></p-skeleton>
+      <p-skeleton height="15.5rem" styleClass="mb-6" borderRadius="16px"></p-skeleton>
+    </div>
+  </div>
+  <div class="grid" *ngIf="!isLoading && products.length > 0">
+    <div class="col-3" *ngFor="let product of products">
+      <products-product [product]="product"></products-product>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

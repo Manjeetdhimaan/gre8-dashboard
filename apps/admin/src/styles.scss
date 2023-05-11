@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../../../styles/admin.scss';
+
+.p-toast .p-toast-message.p-toast-message-info {
+  background: #e9e9ff;
+  border: solid #696cff;
+  border-width: 0 0 0 6px;
+  color: #696cff;
+}

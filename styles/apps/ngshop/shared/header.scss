@@ -1,0 +1,21 @@
+header {
+  margin-bottom: 25px;
+
+  .logo {
+    img {
+      width: 160px;
+    }
+  }
+
+  .grid {
+    align-items: center;
+  }
+
+  .tools {
+    cursor: pointer;
+
+    .pi {
+      margin-right: 5px;
+    }
+  }
+}

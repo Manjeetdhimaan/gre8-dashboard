@@ -1,0 +1,63 @@
+<div class="product-page animate__animated animate__fadeIn" *ngIf="product">
+  <div class="grid">
+    <div class="col-6">
+      <ui-gallery [mainImageSrc]="product.image" [images]="product.images"></ui-gallery>
+    </div>
+    <div class="col-6 product">
+      <h2 class="product-name">{{ product.name }}</h2>
+      <p class="product-desc">
+        {{ product.description }}
+      </p>
+      <div class="product-rating">
+        <p-rating [(ngModel)]="product.rating" [cancel]="false"
+          [disabled]="true"></p-rating>
+      </div>
+      <div class="product-price">
+        {{ product.price | currency: product.currency }}
+        <span class="price-before">{{ +product.price + 18 | currency :
+          product.currency }}</span>
+      </div>
+      <div class="product-quantity">
+        <div class="field col-12 md-3 p-0">
+          <label for="quantity">Quantity</label>
+          <p-inputNumber
+            [(ngModel)]="quantity"
+            mode="decimal"
+            [showButtons]="true"
+            inputId="quantity"
+            [min]="1"
+            [max]="100">
+          </p-inputNumber>
+        </div>
+      </div>
+      <div class="product-actions">
+        <button pButton pRipple type="button" label="Buy Now" class="button-rounded mr-2"></button>
+        <p-button [loading]="isLoadingCart" pRipple type="button" label="Add to Cart" class="button-rounded"
+          (click)="addProductToCart(product._id)"></p-button>
+      </div>
+    </div>
+  </div>
+  <div class="grid product-rich-desc">
+    <div class="col-12">
+      <div [innerHTML]="product.richDescription"></div>
+    </div>
+  </div>
+</div>
+
+<div class="product-page animate__animated animate__fadeIn" *ngIf="!product && isLoading">
+  <div class="grid">
+    <div class="col-6">
+      <p-skeleton height="25.5rem" styleClass="mb-6" borderRadius="16px"></p-skeleton>
+    </div>
+    <div class="col-6 product">
+      <p-skeleton height="25.5rem" styleClass="mb-6" borderRadius="16px"></p-skeleton>
+    </div>
+  </div>
+  <div class="grid product-rich-desc">
+    <div class="col-12">
+      <p-skeleton height="15.5rem" styleClass="mb-6" borderRadius="16px"></p-skeleton>
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
