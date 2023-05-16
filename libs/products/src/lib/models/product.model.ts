@@ -11,6 +11,7 @@ export class Product {
     public images: any[],
     public brand: string,
     public price: string | number,
+    public mrpPrice: string | number,
     public currentPrice: string | number,
     public currency: string,
     public countInStock: number | string,

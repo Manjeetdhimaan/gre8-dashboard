@@ -59,6 +59,7 @@ export class ProductsEditComponent implements OnInit {
     this.productForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
+      mrpPrice: new FormControl(''),
       category: new FormControl(''),
       author: new FormControl(''),
       countInStock: new FormControl('', [Validators.required]),
@@ -119,6 +120,7 @@ export class ProductsEditComponent implements OnInit {
         name: new FormControl(res.product.name, Validators.required),
         image: new FormControl(res.product.image, Validators.required),
         price: new FormControl(res.product.currentPrice, Validators.required),
+        mrpPrice: new FormControl(res.product.mrpPrice? res.product.mrpPrice : ''),
         author: new FormControl(res.product.author),
         countInStock: new FormControl(res.product.countInStock),
         description: new FormControl(res.product.description),

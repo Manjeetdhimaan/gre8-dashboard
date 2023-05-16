@@ -20,7 +20,7 @@
       <div class="grid" *ngIf="!isLoading">
         <div class="col-12">
           <div class="formgrid grid">
-            <div class="field col">
+            <div class="field col-12">
               <label for="name">Name</label>
               <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1
                 border-solid surface-border border-round appearance-none
@@ -31,11 +31,19 @@
             </div>
 
             <div class="field col">
-              <label for="price">Price</label>
+              <label for="price">Current Price</label>
               <p-inputNumber styleClass="w-full" formControlName="price" mode="decimal" inputId="price" id="price"
                 class="block"></p-inputNumber>
               <small *ngIf="(f['price'].hasError('required') &&
                 f['price'].touched) || f['price'].hasError('required') &&
+                submitted" class="p-error">Price is required</small>
+            </div>
+             <div class="field col">
+              <label for="mrpPrice">Mrp Price (If you want to show price discount)</label>
+              <p-inputNumber styleClass="w-full" formControlName="mrpPrice" mode="decimal" inputId="mrpPrice" id="price"
+                class="block"></p-inputNumber>
+              <small *ngIf="(f['mrpPrice'].hasError('required') &&
+                f['mrpPrice'].touched) || f['mrpPrice'].hasError('required') &&
                 submitted" class="p-error">Price is required</small>
             </div>
 
